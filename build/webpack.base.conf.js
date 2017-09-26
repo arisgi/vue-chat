@@ -37,6 +37,13 @@ module.exports = {
         }
       },
       {
+        test: /\.ts$/,
+        loader: 'tslint-loader',
+        enforce: 'pre',
+        include: [resolve('src'), resolve('test')],
+        exclude: /(node_modules)/
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
