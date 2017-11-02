@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:1.13
+    ports:
+      - "8888:80"
+    volumes:
+      - "./nginx/conf.d:/etc/nginx/conf.d"
+    networks:
+      - network
+    depends_on:
+      - node
+
+  node:
+    build: .
+    hostname: node
+    volumes:
+      - ./app:/home/node/app
+      - /home/node/app/node_modules
+    networks:
+      - network
+    working_dir: /home/node/app
+    command: [sh, -c, yarn install && yarn start]
+
+networks:
+  network:
+    driver: bridge
